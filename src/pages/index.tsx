@@ -49,7 +49,7 @@ export default function Home(props: HomeProps) {
               </Thead>
               <Tbody>
                 {Object.values(props.users).map((user, index) => {
-                  return <UserItem user={user} index={index} />
+                  return <UserItem key={index} user={user} index={index} />
                 })}
               </Tbody>
               <Tfoot>
