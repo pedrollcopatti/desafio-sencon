@@ -14,7 +14,8 @@ import {
     Avatar,
     Badge,
     Text,
-    Tooltip
+    Tooltip,
+    useColorMode
 } from "@chakra-ui/react"
 import { motion } from "framer-motion"
 import { User } from "../utils/types"
@@ -28,6 +29,7 @@ export default function UserItem(props: UserItemProps) {
 
     const MotionTr = motion(Tr)
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { colorMode } = useColorMode()
 
     function CompanyName() {
         if (props.index % 3 === 0 && props.index % 5 === 0) {
@@ -43,12 +45,12 @@ export default function UserItem(props: UserItemProps) {
 
     return (
         <>
-            <MotionTr onClick={onOpen} whileHover={{ backgroundColor: '#61B0FF', color: '#fff', scale: 1.01 }} cursor='pointer' key={props.index}>
+            <MotionTr color={colorMode === 'dark' ? 'white' : 'black'} onClick={onOpen} whileHover={{ backgroundColor: '#61B0FF', color: '#fff', scale: 1.01 }} cursor='pointer' key={props.index}>
                 <Td>{props.index + 1}</Td>
                 <Td>{props.user.name}</Td>
-                <Td overflow='clip' maxWidth='40'>{props.user.email}</Td>
-                <Td overflow='clip' maxWidth='40'>{props.user.phone}</Td>
-                <Td overflow='clip' maxWidth='40'>{props.user.address.street}, {props.user.address.suite}</Td>
+                <Td overflow='clip'>{props.user.email}</Td>
+                <Td overflow='clip'>{props.user.phone}</Td>
+                <Td overflow='clip'>{props.user.address.street}, {props.user.address.suite}</Td>
                 <Td >{props.user.address.city}</Td>
                 <Td overflow='clip' maxWidth='30'>{CompanyName()}</Td>
                 <Tooltip hasArrow mt='2' label='Abrir informações'><Td><ArrowUpDownIcon /></Td></Tooltip>
